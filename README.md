@@ -7,4 +7,5 @@
 
 ## Note Format
 - The notes are formatted as one file for each week
+- The file format is juniper notebook in python so you can view and execute the code with formatted notes from the professor in the same file
 - Sometimes I link keywords or functions to the documentation on python
