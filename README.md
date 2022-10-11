@@ -2,7 +2,7 @@
 
 ## Access to the notes
 - Clone the repository to your computer
-- Sync with main to get updated notes (just like how we would sync to get the updated lab)
+- Sync with main to get updated notes (sort of like how we would sync to get the updated lab)
 * I cannot see who clones the repo even if you are logged in
 
 ## Note Format
