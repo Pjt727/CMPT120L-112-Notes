@@ -2,7 +2,13 @@
 
 ## This is an example of using OOP to make Tic-Tac-Toe
 ## At this point in the class, we have not gone over classes and whatnot
-## Feel to make improvemnts to the code and submit pull requests!
+## Feel to make improvements to the code and submit pull requests!
+
+## The idea of OOP in this instance is that we can have a class structure that broadly represents any connecting game
+##  Then we can make objects from that class structure to make objects of connecting games which would be things such as
+##  TikTacToe and Gomuku. This allows us to create a variety of different connecting games utilizing much of the same code.
+## I also use a Player class for some added functionality
+##  This allows for things in the game such as teaming, dynamic win message depending on who wins, and names
 
 import string
 
@@ -59,7 +65,7 @@ class ConnectGame:
     def display_board(self) -> None:
         # lining it up well only for 1-100
 
-        print('   ', end = '')
+        print(self.cell_sep, end = '')
         for col_name in self.col_inputs:
             if col_name < 10:
                 print(f'{col_name}{self.cell_sep}', end='')
@@ -80,9 +86,9 @@ class ConnectGame:
         
 
     def move(self) -> None:
-        print(f"Player {self.player.name} has the move.")
+        print(f"Player {self.player.name} with mark {self.player.mark} has the move.")
         if self.is_row_alpha:
-            row = ask_for_input(information='row number', accepted = self.row_inputs, type_req = str)
+            row = ask_for_input(information='row letter', accepted = self.row_inputs, type_req = str)
             row = self.row_inputs.index(row)
         else:
             row = ask_for_input(information='row number', accepted=self.row_inputs, type_req = int) - 1
@@ -102,13 +108,13 @@ class ConnectGame:
     
     def check_tie(self) -> bool:
         for row in self.board:
-            for player in row:
-                if player is None:
-                    return False
+            # faster to use in because inbuilt looping is almost always faster bc of how python works
+            if None in row:
+                return False
         return True
 
     # These checks use the marks instead of the player object
-    # This allows for multiple players to have the functionalitly of
+    # This allows for multiple players to have the functionality of
     #   being on the same team
     def check_win(self) -> bool:
         if not self.last_move: return False
@@ -119,16 +125,13 @@ class ConnectGame:
 
         return False
 
-    # Connecting can never be more than (2*win_Con - 1)
+    # amount of connecting can never be more than (2*win_con - 1)
     #   Therefore I think checking in the while if connecting >= win_con
-    #   does not make the code more effeicnt
+    #   does not make the code more efficient
     # 1 needs to be added to include the connection of mark the player just put down
-
     def check_row(self) -> bool:
         # Counts how many connect to the last point left and right
         return self.conn_check(i_col = 1) + self.conn_check(i_col = -1) + 1 >= self.win_con
-
-    
     
     def check_col(self) -> bool:
         # Counts how many connect to the last point up and down
@@ -139,8 +142,11 @@ class ConnectGame:
         conn_right_left = self.conn_check(i_row=-1, i_col=-1) + self.conn_check(i_row=1, i_col=1)
         return (conn_left_right + 1 >= self.win_con) or (conn_right_left + 1 >= self.win_con)
 
+    # takes iterators and iterates adding 1 to connecting if the mark is the same as the current player's marker
     def conn_check(self, i_row: int = 0, i_col: int = 0) -> int:
         row_num_s, col_num_s = self.last_move
+
+        # the first iteration is done here
         row_num = row_num_s + i_row
         col_num = col_num_s + i_col
 
