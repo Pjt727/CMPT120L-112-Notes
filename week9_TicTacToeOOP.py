@@ -185,12 +185,14 @@ def gentr_fn(loopable):
             yield j
 
 def main():
-    player1 = Player(mark='X',win_message='I am the very best!', name='James')
-    player2 = Player(mark='O', win_message='Well, that was easy!', name='Bob')
+    player1 = Player(mark='X',win_message='I am the very best!', name='Patrick')
+    player2 = Player(mark='O', win_message='Well, that was easy!', name='Lex')
+    player3 = Player(mark='X', win_message='Well, that was easy!', name='Ryann')
+    player4 = Player(mark='O', win_message='Well, that was easy!', name='Isabella')
     
     # Example of different connect games you can play
     
-    TicTacToe = ConnectGame((player1, player2), size=3, win_con=3)
+    TicTacToe = ConnectGame((player1, player2, player3, player4), size=3, win_con=3)
     Gomoku = ConnectGame((player1, player2),size=15, win_con=5)
 
     TicTacToe.game_loop()
